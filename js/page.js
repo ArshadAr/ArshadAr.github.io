@@ -153,6 +153,27 @@ if (page === 'services') {
   if (location.hash) setTimeout(() => scrollTo(location.hash, { offset: -80 }), 300);
 }
 
+if (page === 'about') {
+  // portrait lens — hover to look "behind the frame"
+  const f = $('.js-lens'), lens = $('.ab__lens', f), v = $('.js-ab-v');
+  const open = (r, x, y) => { v.play().catch(() => {}); if (gsap) gsap.to(lens, { '--r': r, duration: .9, ease: 'expo.out', overwrite: 'auto' }); else lens.style.setProperty('--r', r); };
+  const close = () => { if (gsap) gsap.to(lens, { '--r': '0px', duration: .6, ease: 'expo.out', overwrite: 'auto', onComplete: () => v.pause() }); else lens.style.setProperty('--r', '0px'); };
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    f.addEventListener('pointerenter', () => open('150px'));
+    f.addEventListener('pointerleave', close);
+    f.addEventListener('pointermove', e => {
+      const r = f.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      gsap ? gsap.to(lens, { '--x': x + 'px', '--y': y + 'px', duration: .45, ease: 'power3' }) : (lens.style.setProperty('--x', x + 'px'), lens.style.setProperty('--y', y + 'px'));
+    });
+  } else {
+    $('.js-lens-hint').textContent = 'Tap to look behind the frame';
+    let on = false;
+    f.addEventListener('click', () => { on = !on; lens.style.setProperty('--x', '50%'); lens.style.setProperty('--y', '40%'); on ? open('120%') : close(); });
+  }
+  if (gsap && !reduce) gsap.fromTo('.ab__por', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: true } });
+}
+
 if (page === 'contact') {
   const state = { need: [], budget: '', time: '' };
   $$('.opts').forEach(g => g.addEventListener('click', e => {

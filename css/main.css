@@ -493,3 +493,19 @@ html,body{overflow-x:clip}
   .bar .filters::-webkit-scrollbar{display:none}
   .views button{padding:0 10px}
 }
+/* portrait */
+.ab__frame{background:var(--light);aspect-ratio:4/5}
+.ab__por{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;mix-blend-mode:multiply;filter:contrast(1.05);transform-origin:50% 30%}
+.ab__lens{position:absolute;inset:0;--x:50%;--y:40%;--r:0px;clip-path:circle(var(--r) at var(--x) var(--y));will-change:clip-path}
+.ab__lens video{width:100%;height:100%;object-fit:cover}
+.ab__cap{position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pillv--face{background:var(--light);width:1.3em}
+.pillv--face img{mix-blend-mode:multiply;object-position:50% 30%}
+.ct__me{display:flex;gap:16px;align-items:center;padding:18px;border-radius:20px;background:var(--white)}
+.ct__me img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:var(--light)}
+.ct__me b{display:block;font-weight:500;font-size:19px;letter-spacing:-.02em}
+.ct__me p{color:var(--muted);font-size:15px;line-height:1.4;margin-top:2px}
+.menu__media .menu__por{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;transition:opacity .4s}
+.ab__cap span{background:rgba(244,243,237,.88);padding:6px 10px;border-radius:99px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media (max-width:700px){.ab__cap{flex-direction:column;align-items:flex-start;gap:6px}}
+.ab__frame .ab__cap .mono{position:static;mix-blend-mode:normal;color:var(--ink)}

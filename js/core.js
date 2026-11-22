@@ -39,7 +39,7 @@ function shell() {
       ${[['index.html', 'Home', ''], ['work.html', 'Work', S.works.length], ['services.html', 'Services', '05'], ['about.html', 'About', ''], ['contact.html', "Let's talk", '']].map(([h, t, n], i) => `<li><a href="${h}" data-cur="link" data-v="${S.featured[i % S.featured.length]}">${t}${n !== '' ? `<sup>${n}</sup>` : ''}</a></li>`).join('')}
     </ul>
     <div class="menu__side">
-      <div class="menu__media"></div>
+      <div class="menu__media"><img class="menu__por" src="img/arshad.webp" alt="" loading="lazy"></div>
       <div class="menu__info">
         <div><span class="mono muted">Say hello</span><a href="mailto:${S.email}" class="ul" data-cur="link">${S.email}</a><a href="${wa('Hi Arshad! I found your portfolio.')}" target="_blank" rel="noopener" class="ul" data-cur="link">WhatsApp ↗</a></div>
         <div><span class="mono muted">Elsewhere</span><a href="${S.behance}" target="_blank" rel="noopener" class="ul" data-cur="link">Behance ↗</a>${S.instagram ? `<a href="${S.instagram}" target="_blank" rel="noopener" class="ul" data-cur="link">Instagram ↗</a>` : ''}${S.linkedin ? `<a href="${S.linkedin}" target="_blank" rel="noopener" class="ul" data-cur="link">LinkedIn ↗</a>` : ''}<span class="avail mono" style="margin-top:14px"><i></i>${S.availability}</span></div>
@@ -202,6 +202,7 @@ function navMenu() {
     let v = $(`video[data-id="${a.dataset.v}"]`, mediaBox);
     if (!v) { v = document.createElement('video'); Object.assign(v, { muted: true, loop: true, playsInline: true, src: media.prev(a.dataset.v) }); v.dataset.id = a.dataset.v; mediaBox.appendChild(v); }
     $$('video', mediaBox).forEach(x => { x.classList.toggle('on', x === v); x === v ? x.play().catch(() => {}) : x.pause(); });
+    const por = $('.menu__por', mediaBox); if (por) por.style.opacity = 0;
   }));
 
   const clock = () => {

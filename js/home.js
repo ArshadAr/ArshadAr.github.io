@@ -45,7 +45,7 @@ $('.js-rail').innerHTML = S.stills.map(s => `<figure><img src="img/ph/${s.id}.we
 enhance();
 
 /* ---------- lazy autoplay videos (pills, caps) ---------- */
-$$('.pillv').forEach(p => p.innerHTML = `<video muted loop playsinline preload="none" data-src="${media.prev(p.dataset.v)}" poster="${media.img(p.dataset.v)}"></video>`);
+$$('.pillv[data-v]').forEach(p => p.innerHTML = `<video muted loop playsinline preload="none" data-src="${media.prev(p.dataset.v)}" poster="${media.img(p.dataset.v)}"></video>`);
 const auto = new IntersectionObserver(es => es.forEach(e => {
   const v = e.target; if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else v.pause();
 }), { rootMargin: '120px' });
