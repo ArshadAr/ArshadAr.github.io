@@ -15,34 +15,56 @@
 <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/main.css">
 <style>
-  .hero__h{position:absolute;left:var(--gut);right:var(--gut);top:48%;transform:translateY(-50%);z-index:1;color:#fff;mix-blend-mode:difference;pointer-events:none;text-align:center;font-size:clamp(54px,10.6vw,204px)}
-  .hero__h em{font-style:normal;color:#dcb613}
-  @media (max-width:700px){.hero__h{top:44%;font-size:clamp(48px,15vw,90px)}}
+  .hero{background:var(--blue);color:var(--paper)}
+  .hero__gl{touch-action:pan-y}
+  .hero__fallback{display:none;position:absolute;inset:0}
+  .hero__fallback video{width:100%;height:100%;object-fit:cover}
+  .hero__fallback::after{content:"";position:absolute;inset:0;background:var(--blue);opacity:.72;mix-blend-mode:multiply}
+  .no-gl .hero__fallback{display:block}
+  .hero__ui{padding-top:92px}
+  .hero__top{color:rgba(244,243,237,.85)}
+  .hero__mid{display:flex;justify-content:center}
+  .hero__hint{display:inline-flex!important;align-items:center;gap:12px;color:var(--paper);padding:10px 16px 10px 12px;border:1px solid rgba(244,243,237,.35);border-radius:99px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(35,73,236,.25)}
+  .hero__ring{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--paper);position:relative;flex:none}
+  .hero__ring::after{content:"";position:absolute;inset:-1.5px;border-radius:50%;border:1.5px solid var(--paper);animation:pulse 1.8s var(--ease) infinite}
+  .hero__h{font-size:clamp(58px,11.4vw,214px);line-height:.85;letter-spacing:-.068em;font-weight:500;color:var(--paper);margin-bottom:clamp(20px,2.4vw,36px)}
+  .hero__h .o{color:transparent;-webkit-text-stroke:1.5px var(--paper)}
+  .hero__lede{color:rgba(244,243,237,.86)}
+  .hero .btn--line{color:var(--paper)}
+  .hero__scroll{position:absolute;right:var(--gut);top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:100% 50%;color:rgba(244,243,237,.7);z-index:2}
+  body.on-hero .nav,body.on-hero .hud{mix-blend-mode:normal;color:var(--paper)}
+  body.on-hero .hud__track{background:rgba(244,243,237,.3)}
+  body.on-hero .hud__fill{background:var(--paper)}
+  body.on-hero .hud__key{border-color:var(--paper);background:var(--blue)}
+  body.on-hero .hud__key.on{background:var(--paper)}
+  @media (max-width:700px){.hero__h{font-size:clamp(52px,16vw,96px)}.hero__scroll{display:none}.hero__mid{justify-content:flex-start}}
 </style>
 </head>
 <body data-page="index">
 <main>
 
-  <!-- HERO -->
+  <!-- HERO — blue liquid reveal -->
   <section class="hero" data-hud="Intro">
-    <div class="hero__gl" data-cur="drag" data-cur-label="Drag"></div>
-    <div class="hero__fallback"></div>
-    <h1 class="hero__h d1" data-hero-title>Motion with<br><em>a point of view.</em></h1>
+    <div class="hero__gl"></div>
+    <div class="hero__fallback"><video muted loop playsinline autoplay preload="metadata"></video></div>
     <div class="hero__ui">
       <div class="hero__top mono">
         <span data-scramble>Arshad — Motion designer &amp; creative director</span>
         <span class="avail"><i></i><span class="js-avail"></span></span>
       </div>
-      <div class="hero__row">
-        <p class="hero__lede lead" data-hero-fade>I design motion graphics, CGI and brand films that stop the scroll — and make brands impossible to forget.</p>
-        <div class="hero__hint mono muted" data-hero-fade>Drag the strip · hover a frame to play it</div>
-        <div class="hero__ctas" data-hero-fade>
-          <a href="work.html" class="btn" data-mag data-cur="link"><span class="roll">See the work</span><span class="btn__ic"></span></a>
-          <a class="btn btn--blue" data-wa="Hi Arshad! I saw your portfolio and I'd like to discuss a project." data-mag data-cur="link"><span class="roll">Start a project</span><span class="btn__ic"></span></a>
+      <div class="hero__mid"><div class="hero__hint mono" data-hero-fade><span class="hero__ring"></span><span class="js-hint">Move your cursor — the reel is under the blue</span></div></div>
+      <div>
+        <h1 class="hero__h" data-hero-title>Motion with<br>a point <span class="o">of view.</span></h1>
+        <div class="hero__row">
+          <p class="hero__lede lead" data-hero-fade>I design motion graphics, CGI and brand films that stop the scroll — and make brands impossible to forget.</p>
+          <div class="hero__ctas" data-hero-fade>
+            <a href="work.html" class="btn btn--white" data-mag data-cur="link"><span class="roll">See the work</span><span class="btn__ic"></span></a>
+            <a class="btn btn--line" data-wa="Hi Arshad! I saw your portfolio and I'd like to discuss a project." data-mag data-cur="link"><span class="roll">Start a project</span><span class="btn__ic"></span></a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="hero__card"><span class="mono js-hc-b"></span><b class="js-hc-t"></b></div>
+    <span class="hero__scroll mono" aria-hidden="true">Scroll — drain the blue ↓</span>
   </section>
 
   <!-- STATEMENT -->

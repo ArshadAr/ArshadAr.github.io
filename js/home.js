@@ -51,36 +51,25 @@ const auto = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: '120px' });
 $$('.pillv video, .cap__m video').forEach(v => auto.observe(v));
 
-/* ---------- WebGL hero strip ---------- */
-const order = ['motion', 'cgi', 'film', 'ai', 'edit'];
-const pool = [...S.featured.map(id => byId[id])];
-const extra = S.works.filter(w => !S.featured.includes(w.id) && w.cat !== 'edit');
-order.forEach(c => extra.filter(w => w.cat === c).slice(0, 2).forEach(w => pool.push(w)));
-const card = $('.hero__card');
-let strip = null;
+/* ---------- WebGL hero: blue liquid reveal ---------- */
+const heroReel = document.createElement('video');
+Object.assign(heroReel, { muted: true, loop: true, playsInline: true, autoplay: true, crossOrigin: 'anonymous', preload: 'auto' });
+heroReel.setAttribute('playsinline', ''); heroReel.setAttribute('muted', '');
+heroReel.src = innerWidth < 760 ? 'media/reel-loop-m.mp4' : 'media/reel-loop.mp4';
+heroReel.play().catch(() => {});
+let liquid = null;
 if (!reduce) {
-  try {
-    const { createStrip } = await import('./gl-strip.js');
-    strip = createStrip($('.hero__gl'), pool.slice(0, 16), {
-      onHover: it => {
-        if (it) { $('.js-hc-b').textContent = `${it.brand} · ${it.discipline}`; $('.js-hc-t').textContent = it.title; }
-        gsap.to(card, { opacity: it ? 1 : 0, scale: it ? 1 : .9, duration: .35, ease: 'expo.out' });
-        $('.hero__gl').dataset.curLabel = it ? 'View' : 'Drag';
-        const c = $('.cur'); if (c && c.classList.contains('is-bub')) $('.js-bub').textContent = it ? 'View' : 'Drag';
-      },
-      onClick: it => { const a = document.createElement('a'); a.href = `project.html?p=${it.slug}`; a.dataset.pt = it.brand; document.body.appendChild(a); a.click(); a.remove(); },
-    });
-  } catch (e) { console.warn('WebGL off', e); }
+  try { const { createLiquid } = await import('./gl-liquid.js'); liquid = createLiquid($('.hero__gl'), { video: heroReel }); }
+  catch (e) { console.warn('WebGL off', e); }
 }
-if (!strip) {
+if (!liquid) {
   document.documentElement.classList.add('no-gl');
-  $('.hero__fallback').innerHTML = pool.slice(0, 4).map(w => `<a class="mc" href="project.html?p=${w.slug}" data-prev><img src="${media.img(w.id)}" alt=""><video muted loop playsinline preload="none" data-src="${media.prev(w.id)}"></video></a>`).join('');
-  previews();
-}
-if (fine && gsap) {
-  const cx = gsap.quickTo(card, 'x', { duration: .5, ease: 'power3' }), cy = gsap.quickTo(card, 'y', { duration: .5, ease: 'power3' });
-  $('.hero').addEventListener('pointermove', e => { cx(e.clientX + 24); cy(e.clientY + 24); });
-}
+  const fv = $('.hero__fallback video'); fv.src = heroReel.src; fv.play().catch(() => {});
+  $('.js-hint').textContent = 'Showreel ’26 — motion, CGI, film & AI';
+} else if (!fine) $('.js-hint').textContent = 'Touch & drag — the reel is under the blue';
+// keep nav + HUD readable on the blue hero
+if (ST) ST.create({ trigger: '.hero', start: 'top top', end: 'bottom 60px', onToggle: s => document.body.classList.toggle('on-hero', s.isActive) });
+document.body.classList.add('on-hero');
 
 /* ---------- hero intro (after loader / transition) ---------- */
 const titleWords = splitWords($('[data-hero-title]'));
@@ -93,14 +82,14 @@ if (gsap && !reduce) {
   gsap.to(titleWords, { yPercent: 0, duration: 1.4, stagger: .06, ease: 'expo.out' });
   gsap.to('[data-hero-fade], .hero__top > *', { opacity: 1, y: 0, duration: 1.1, stagger: .07, ease: 'expo.out', delay: .35 });
 }
-strip && strip.start();
+liquid && liquid.intro();
 after();
 
 if (gsap && ST && !reduce) {
-  /* hero scroll-out */
-  ST.create({ trigger: '.hero', start: 'top top', end: 'bottom top', onUpdate: s => strip && strip.setScroll(s.progress) });
-  gsap.to('[data-hero-title]', { yPercent: -40, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero__ui', { opacity: 0, y: -60, ease: 'none', scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: true } });
+  /* hero scroll-out: the blue drains away and the reel takes over */
+  ST.create({ trigger: '.hero', start: 'top top', end: 'bottom top', onUpdate: s => liquid && liquid.setOpen(Math.min(1, Math.max(0, (s.progress - .08) * 1.9))) });
+  gsap.to('.hero__ui', { opacity: 0, y: -80, ease: 'none', scrollTrigger: { trigger: '.hero', start: '5% top', end: '60% top', scrub: true } });
+  gsap.to('.hero__scroll', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '20% top', scrub: true } });
 
   /* statement — words light up as you read */
   const st = $('.js-state'); const words = splitWords(st);

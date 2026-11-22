@@ -153,7 +153,7 @@ function cursor() {
   document.addEventListener('pointerover', e => {
     const t = e.target.closest('[data-cur]');
     c.classList.remove('is-link', 'is-bub', 'is-text');
-    c.classList.toggle('on-dark', !!e.target.closest('.dk,.bl,.foot,.menu,.cap:nth-child(2),.cap:nth-child(3),.reel'));
+    c.classList.toggle('on-dark', !!e.target.closest('.dk,.bl,.hero,.foot,.menu,.cap:nth-child(2),.cap:nth-child(3),.reel'));
     if (!t) { if (e.target.closest('p,h1,h2,h3')) c.classList.add('is-text'); return; }
     const k = t.dataset.cur;
     if (k === 'link') c.classList.add('is-link');
