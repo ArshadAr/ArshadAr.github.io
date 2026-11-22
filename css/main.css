@@ -509,3 +509,8 @@ html,body{overflow-x:clip}
 .ab__cap span{background:rgba(244,243,237,.88);padding:6px 10px;border-radius:99px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 @media (max-width:700px){.ab__cap{flex-direction:column;align-items:flex-start;gap:6px}}
 .ab__frame .ab__cap .mono{position:static;mix-blend-mode:normal;color:var(--ink)}
+/* 3D world layer (shared) */
+.world{position:fixed;inset:0;z-index:0;pointer-events:none}
+.world canvas{width:100%!important;height:100%!important;display:block}
+body.has-world{background:transparent}
+body.has-world main,body.has-world .foot{position:relative;z-index:1}

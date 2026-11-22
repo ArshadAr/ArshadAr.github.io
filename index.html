@@ -14,139 +14,111 @@
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/main.css">
-<style>
-  .nh{height:240vh;position:relative}
-  .nh__stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-  .nh__c{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .nh__ui{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:96px var(--gut) 52px;pointer-events:none}
-  .nh__ui a,.nh__ui button{pointer-events:auto}
-  .nh__top{display:flex;justify-content:space-between;gap:20px;color:var(--muted)}
-  .nh__bot{display:grid;grid-template-columns:1.1fr 1fr auto;gap:clamp(20px,3vw,48px);align-items:end}
-  .nh__h{font-size:clamp(30px,3.4vw,56px);font-weight:500;letter-spacing:-.045em;line-height:.98}
-  .nh__h em{font-style:normal;color:var(--blue)}
-  .nh__end{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;color:#fff;opacity:0;visibility:hidden;pointer-events:none}
-  .nh__end .reel__play{pointer-events:auto}
-  .nh__end .d1{font-size:clamp(44px,8vw,150px);mix-blend-mode:difference}
-  .nh__meta{position:absolute;left:var(--gut);right:var(--gut);bottom:28px;display:flex;justify-content:space-between;color:#fff}
-  .nh__cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted)}
-  .nh__cue i{width:1px;height:38px;background:linear-gradient(var(--ink),transparent);transform-origin:50% 0;animation:cue 1.8s var(--ease) infinite}
-  @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:50% 0}51%{transform-origin:50% 100%}100%{transform:scaleY(0);transform-origin:50% 100%}}
-  @media (max-width:900px){.nh__bot{grid-template-columns:1fr}.nh__cue{display:none}.nh__ui{padding-bottom:36px}}
-  @media (max-width:700px){.nh__top .avail{display:none}.nh__bot{gap:14px}.nh__bot .lead{font-size:15px;line-height:1.4}.nh__bot .hero__ctas{flex-wrap:nowrap}.nh__bot .btn{height:48px;font-size:14px;padding-left:18px}.nh__bot .btn__ic{width:34px;height:34px}}
-</style>
+<link rel="stylesheet" href="css/home.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
 </head>
-<body data-page="index">
+<body data-page="index" data-foot-title="Is your brand<br>ready to <span style='font-style:italic;font-weight:400'>move?</span>">
+<div class="world" aria-hidden="true"></div>
 <main>
 
-  <!-- HERO — name as a window to the reel -->
-  <section class="nh" data-hud="Intro">
-    <div class="nh__stick">
-      <canvas class="nh__c js-nh" role="img" aria-label="ARSHAD — the showreel plays inside the letters" data-cur="bub" data-cur-label="Play reel"></canvas>
-      <div class="nh__ui">
-        <div class="nh__top mono">
-          <span data-scramble>(Portfolio ’26) Motion designer &amp; creative director</span>
-          <span class="avail"><i></i><span class="js-avail"></span></span>
-        </div>
-        <div class="nh__bot">
-          <h1 class="nh__h" data-hero-title>Motion with<br><em>a point of view.</em></h1>
-          <p class="lead muted" data-hero-fade>I design motion graphics, CGI and brand films that stop the scroll — and make brands impossible to forget.</p>
-          <div class="hero__ctas" data-hero-fade>
-            <a href="work.html" class="btn" data-mag data-cur="link"><span class="roll">See the work</span><span class="btn__ic"></span></a>
-            <a class="btn btn--blue" data-wa="Hi Arshad! I saw your portfolio and I'd like to discuss a project." data-mag data-cur="link"><span class="roll">Start a project</span><span class="btn__ic"></span></a>
-          </div>
-        </div>
-      </div>
-      <div class="nh__cue mono" data-hero-fade><span>Scroll</span><i></i></div>
-      <div class="nh__end">
-        <div class="d1">Showreel ’26</div>
-        <button class="reel__play js-reel-play" data-cur="link" aria-label="Play showreel">
-          <svg viewBox="0 0 132 132"><defs><path id="c" d="M66 66m-52 0a52 52 0 1 1 104 0a52 52 0 1 1-104 0"/></defs><text font-family="Space Mono" font-size="10" letter-spacing="3.2" fill="#fff"><textPath href="#c">PLAY REEL ✦ PLAY REEL ✦ PLAY REEL ✦ </textPath></text></svg>
-          <span>▶</span>
-        </button>
-        <div class="nh__meta mono"><span>Motion · CGI · Film · AI</span><span>Click to watch with sound ↗</span></div>
+  <!-- 01 HERO — a living cloud of keyframes -->
+  <section class="h3-hero" data-form="cloud" data-bg="paper" data-hud="Intro">
+    <div class="h3-top mono">
+      <span data-scramble>Motion designer &amp; creative director</span>
+      <span class="avail"><i></i><span class="js-avail"></span></span>
+    </div>
+    <div class="h3-mid">
+      <p class="lead" data-hero-fade>I make brands move — motion design, CGI and films with a point of view.</p>
+      <span class="h3-hint mono" data-hero-fade><i></i><span class="js-hint">Move · click — every diamond is a keyframe</span></span>
+    </div>
+    <div>
+      <span class="h3-scroll mono" data-hero-fade>Scroll to explore</span>
+      <h1 class="h3-name js-name" aria-label="Arshad">ARSHAD</h1>
+    </div>
+  </section>
+
+  <!-- 02 INTRO — the keyframes line up on a timeline -->
+  <section class="h3-intro" data-form="timeline" data-bg="paper" data-hud="Hello">
+    <div class="h3-stick">
+      <p class="h3-l" data-line>I’m Arshad</p>
+      <p class="h3-l" data-line>a motion designer</p>
+      <p class="h3-l i" data-line>&amp; creative director</p>
+      <p class="h3-l r i" data-line>crafting frames</p>
+      <p class="h3-l r" data-line>people remember</p>
+      <div class="h3-introfoot">
+        <p class="lead muted" data-line>For five years I’ve designed, animated, shot and rendered for 40+ brands — one person, idea to final frame.</p>
+        <span class="h3-kf mono" data-line>Every keyframe is a decision</span>
       </div>
     </div>
   </section>
 
-  <!-- STATEMENT -->
-  <section class="sec wrap" data-hud="Hello">
-    <div class="state">
-      <p class="label mono" data-scramble>(01) Hello</p>
+  <!-- 03 CURVE — the keyframes flow into a motion curve -->
+  <section class="h3-curve" data-form="curve" data-bg="paper" data-hud="Curve">
+    <div class="h3-curve__in">
+      <h2 class="h3-l" data-split>Motion is<br><span style="color:var(--blue)">in the curve.</span></h2>
       <div>
-        <p class="state__txt js-state">I’m Arshad <span class="pillv pillv--face"><img src="img/arshad-face.webp" alt=""></span> — a motion designer <span class="pillv" data-v="7b7d907495652b7e5934"></span> and creative director from Kerala. For five years I’ve helped 40+ brands turn ideas into motion <span class="pillv" data-v="5450bd4dd7e18c6d5ef1"></span> that people stop for, share and remember <span class="pillv" data-v="b64a233158b025928c01"></span> — from the first sketch to the final frame.</p>
-        <div class="state__foot">
-          <a href="about.html" class="btn" data-mag data-cur="link"><span class="roll">More about me</span><span class="btn__ic"></span></a>
-          <a href="services.html" class="btn btn--line" data-mag data-cur="link"><span class="roll">What I can do for you</span><span class="btn__ic"></span></a>
-        </div>
+        <p class="lead" data-fade>The difference between something that moves and something that feels alive is a curve. I obsess over them — timing, easing, weight, the frame where it all lands.</p>
+        <p class="mono muted" style="margin-top:18px" data-fade>Move your cursor up and down — the curve follows you</p>
       </div>
     </div>
   </section>
 
+  <!-- 04 CRAFTS — four shapes, four crafts (dark) -->
+  <section class="h3-crafts dk" data-form="crafts" data-bg="ink" data-hud="Crafts">
+    <div>
+      <p class="label mono" data-scramble>(Expertise)</p>
+      <h2 class="h3-l" data-split style="margin-top:20px">One creative.<br><span style="color:var(--blue2)">Four crafts.</span></h2>
+    </div>
+    <div class="h3-cols js-crafts"></div>
+  </section>
 
-  <!-- SELECTED WORK -->
-  <section class="sec wrap" data-hud="Work">
+  <!-- 05 BRANDS -->
+  <section class="h3-brands" data-form="field" data-bg="paper" data-hud="Brands">
+    <div class="h3-stack" aria-label="Brands I’ve moved">
+      <div><span>Brands</span><span>Brands</span><span>Brands</span></div>
+      <div><span>I’ve</span><span>I’ve</span><span>I’ve</span></div>
+      <div><span>Moved</span><span>Moved</span><span>Moved</span></div>
+    </div>
+    <p class="h3-brands__p muted" data-fade>Retail, food &amp; beverage, healthcare, education, real estate and tech — across India and the Gulf.</p>
+    <div class="clients"><div class="mq js-mq"></div></div>
+  </section>
+
+  <!-- 06 NUMBERS -->
+  <section class="h3-num" data-form="field" data-bg="paper" data-hud="Numbers">
+    <div>
+      <p class="label mono" data-scramble>(By the numbers)</p>
+      <h2 class="h3-l" data-split style="margin-top:20px;font-size:clamp(40px,5.6vw,100px)">Frame<br>by frame.</h2>
+    </div>
+    <ul>
+      <li data-fade><span>Projects delivered</span><b>160+</b></li>
+      <li data-fade><span>Brands moved</span><b>040+</b></li>
+      <li data-fade><span>Years in the craft</span><b>005+</b></li>
+      <li data-fade><span>Crafts under one roof</span><b>006</b></li>
+      <li data-fade><span>Projects in this portfolio</span><b>054</b></li>
+      <li data-fade><span>Hand-offs between people</span><b>000</b></li>
+    </ul>
+  </section>
+
+  <!-- 07 A FEW FRAMES -->
+  <section class="h3-work" data-form="field" data-bg="paper" data-hud="Work">
     <div class="sel__head">
-      <div>
-        <p class="label mono" data-scramble>(02) Selected work</p>
-        <h2 class="d2" data-split style="margin-top:24px">Work that<br>moves people.</h2>
-      </div>
-      <div style="max-width:380px">
-        <p class="muted" data-fade>Eight projects from 160+. Brand films, CGI billboards, explainers and identities — each one built to earn attention.</p>
-        <a href="work.html" class="btn btn--sm" style="margin-top:20px" data-mag data-cur="link" data-fade><span class="roll">All 54 projects</span><span class="btn__ic"></span></a>
-      </div>
+      <div><p class="label mono" data-scramble>(A few frames)</p><h2 class="h3-l" data-split style="margin-top:20px;font-size:clamp(40px,5.6vw,100px)">Recent work.</h2></div>
+      <a href="work.html" class="btn" data-mag data-cur="link" data-fade><span class="roll">All 54 projects</span><span class="btn__ic"></span></a>
     </div>
-    <ul class="rows js-rows"></ul>
-  </section>
-  <div class="float" aria-hidden="true"><div class="float__in"></div></div>
-
-  <!-- CLIENTS + STATS -->
-  <section data-hud="Clients">
-    <div class="clients" aria-label="Brands I've worked with"><div class="mq js-mq"></div></div>
-    <div class="sec wrap" style="padding-top:clamp(64px,8vw,120px)">
-      <div class="stats">
-        <div class="stat" data-fade><b data-count="160">0<sup>+</sup></b><p>projects delivered — reels, films, CGI and identities</p></div>
-        <div class="stat" data-fade data-delay=".08"><b data-count="40">0<sup>+</sup></b><p>brands across India &amp; the Gulf</p></div>
-        <div class="stat" data-fade data-delay=".16"><b data-count="5">0<sup>+</sup></b><p>years designing, shooting and animating</p></div>
-        <div class="stat" data-fade data-delay=".24"><b data-count="1">0</b><p>person from idea to final frame — no hand-offs</p></div>
-      </div>
-    </div>
+    <div class="h3-cards js-cards"></div>
   </section>
 
-  <!-- CAPABILITIES -->
-  <section class="sec wrap" data-hud="Services" style="padding-top:0">
-    <div class="caps__head">
-      <div>
-        <p class="label mono" data-scramble>(03) Capabilities</p>
-        <h2 class="d2" data-split style="margin-top:24px">One creative.<br>Every frame.</h2>
-      </div>
-      <p class="lead muted" data-fade>Most brands juggle a designer, an animator, a 3D artist and an editor. With me you get all of them in one person — faster, simpler, and the idea never gets lost in translation.</p>
-    </div>
-    <div class="caps js-caps"></div>
-  </section>
-
-  <!-- PLAYGROUND -->
-  <section class="sec wrap" data-hud="Play" style="padding-top:clamp(48px,6vw,96px)">
+  <!-- 08 PLAYGROUND -->
+  <section class="h3-play" data-form="field" data-bg="paper" data-hud="Play">
     <div class="play">
       <div>
-        <p class="label mono" data-scramble>(04) Playground</p>
-        <h2 class="d2" data-split style="margin-top:24px">Every frame starts with a curve.</h2>
-        <p class="lead muted" style="margin-top:28px" data-fade>Motion is in the details. This is the graph editor I live in. Drag the blue handles and feel the difference between something that <b style="font-weight:500;color:var(--ink)">moves</b> and something that feels <b style="font-weight:500;color:var(--blue)">alive</b>.</p>
+        <p class="label mono" data-scramble>(Playground)</p>
+        <h2 class="h3-l" data-split style="margin-top:20px;font-size:clamp(40px,5.6vw,100px)">Bend a curve.</h2>
+        <p class="lead muted" style="margin-top:24px" data-fade>This is the graph editor I live in. Drag the blue handles and feel the difference between <b style="font-weight:500;color:var(--ink)">moving</b> and <b style="font-weight:500;color:var(--blue)">alive</b>.</p>
         <div class="presets js-presets" data-fade></div>
       </div>
       <div class="curve js-curve" data-fade></div>
     </div>
-  </section>
-
-  <!-- STILLS -->
-  <section class="sec" data-hud="Stills" style="padding-top:0;overflow:hidden">
-    <div class="wrap sel__head">
-      <div>
-        <p class="label mono" data-scramble>(05) Stills &amp; 3D renders</p>
-        <h2 class="d2" data-split style="margin-top:24px">Frames worth pausing on.</h2>
-      </div>
-      <p class="muted mono" data-fade>Drag to explore →</p>
-    </div>
-    <div class="rail js-rail" data-cur="drag" data-cur-label="Drag"></div>
   </section>
 
 </main>

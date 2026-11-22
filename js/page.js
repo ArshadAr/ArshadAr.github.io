@@ -96,6 +96,23 @@ const builders = {
 builders[page] && builders[page]();
 
 const { ready, after } = await boot();
+
+/* the same 3D identity: a small cluster of keyframe diamonds in the page header */
+if (!reduce && $('.world')) {
+  try {
+    const { createWorld } = await import('./world.js');
+    const world = createWorld($('.world'), { mode: 'page' });
+    if (world) {
+      document.body.classList.add('has-world');
+      world.setStops([{ f: 'corner' }, { f: 'field' }]);
+      const upd = y => { const p = Math.min(1, y / (innerHeight * .9)); world.setPos(p); world.setAlpha(1 - p * .55); };
+      const lenisRef = (await import('./core.js')).lenis;
+      if (lenisRef) lenisRef.on('scroll', ({ scroll }) => upd(scroll)); else addEventListener('scroll', () => upd(scrollY), { passive: true });
+      upd(scrollY);
+    }
+  } catch (e) { console.warn('3D off', e); }
+}
+
 await ready;
 after();
 
