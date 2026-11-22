@@ -15,56 +15,57 @@
 <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/main.css">
 <style>
-  .hero{background:var(--blue);color:var(--paper)}
-  .hero__gl{touch-action:pan-y}
-  .hero__fallback{display:none;position:absolute;inset:0}
-  .hero__fallback video{width:100%;height:100%;object-fit:cover}
-  .hero__fallback::after{content:"";position:absolute;inset:0;background:var(--blue);opacity:.72;mix-blend-mode:multiply}
-  .no-gl .hero__fallback{display:block}
-  .hero__ui{padding-top:92px}
-  .hero__top{color:rgba(244,243,237,.85)}
-  .hero__mid{display:flex;justify-content:center}
-  .hero__hint{display:inline-flex!important;align-items:center;gap:12px;color:var(--paper);padding:10px 16px 10px 12px;border:1px solid rgba(244,243,237,.35);border-radius:99px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(35,73,236,.25)}
-  .hero__ring{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--paper);position:relative;flex:none}
-  .hero__ring::after{content:"";position:absolute;inset:-1.5px;border-radius:50%;border:1.5px solid var(--paper);animation:pulse 1.8s var(--ease) infinite}
-  .hero__h{font-size:clamp(58px,11.4vw,214px);line-height:.85;letter-spacing:-.068em;font-weight:500;color:var(--paper);margin-bottom:clamp(20px,2.4vw,36px)}
-  .hero__h .o{color:transparent;-webkit-text-stroke:1.5px var(--paper)}
-  .hero__lede{color:rgba(244,243,237,.86)}
-  .hero .btn--line{color:var(--paper)}
-  .hero__scroll{position:absolute;right:var(--gut);top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:100% 50%;color:rgba(244,243,237,.7);z-index:2}
-  body.on-hero .nav,body.on-hero .hud{mix-blend-mode:normal;color:var(--paper)}
-  body.on-hero .hud__track{background:rgba(244,243,237,.3)}
-  body.on-hero .hud__fill{background:var(--paper)}
-  body.on-hero .hud__key{border-color:var(--paper);background:var(--blue)}
-  body.on-hero .hud__key.on{background:var(--paper)}
-  @media (max-width:700px){.hero__h{font-size:clamp(52px,16vw,96px)}.hero__scroll{display:none}.hero__mid{justify-content:flex-start}}
+  .nh{height:240vh;position:relative}
+  .nh__stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+  .nh__c{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .nh__ui{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:96px var(--gut) 52px;pointer-events:none}
+  .nh__ui a,.nh__ui button{pointer-events:auto}
+  .nh__top{display:flex;justify-content:space-between;gap:20px;color:var(--muted)}
+  .nh__bot{display:grid;grid-template-columns:1.1fr 1fr auto;gap:clamp(20px,3vw,48px);align-items:end}
+  .nh__h{font-size:clamp(30px,3.4vw,56px);font-weight:500;letter-spacing:-.045em;line-height:.98}
+  .nh__h em{font-style:normal;color:var(--blue)}
+  .nh__end{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;color:#fff;opacity:0;visibility:hidden;pointer-events:none}
+  .nh__end .reel__play{pointer-events:auto}
+  .nh__end .d1{font-size:clamp(44px,8vw,150px);mix-blend-mode:difference}
+  .nh__meta{position:absolute;left:var(--gut);right:var(--gut);bottom:28px;display:flex;justify-content:space-between;color:#fff}
+  .nh__cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted)}
+  .nh__cue i{width:1px;height:38px;background:linear-gradient(var(--ink),transparent);transform-origin:50% 0;animation:cue 1.8s var(--ease) infinite}
+  @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:50% 0}51%{transform-origin:50% 100%}100%{transform:scaleY(0);transform-origin:50% 100%}}
+  @media (max-width:900px){.nh__bot{grid-template-columns:1fr}.nh__cue{display:none}.nh__ui{padding-bottom:36px}}
+  @media (max-width:700px){.nh__top .avail{display:none}.nh__bot{gap:14px}.nh__bot .lead{font-size:15px;line-height:1.4}.nh__bot .hero__ctas{flex-wrap:nowrap}.nh__bot .btn{height:48px;font-size:14px;padding-left:18px}.nh__bot .btn__ic{width:34px;height:34px}}
 </style>
 </head>
 <body data-page="index">
 <main>
 
-  <!-- HERO — blue liquid reveal -->
-  <section class="hero" data-hud="Intro">
-    <div class="hero__gl"></div>
-    <div class="hero__fallback"><video muted loop playsinline autoplay preload="metadata"></video></div>
-    <div class="hero__ui">
-      <div class="hero__top mono">
-        <span data-scramble>Arshad — Motion designer &amp; creative director</span>
-        <span class="avail"><i></i><span class="js-avail"></span></span>
-      </div>
-      <div class="hero__mid"><div class="hero__hint mono" data-hero-fade><span class="hero__ring"></span><span class="js-hint">Move your cursor — the reel is under the blue</span></div></div>
-      <div>
-        <h1 class="hero__h" data-hero-title>Motion with<br>a point <span class="o">of view.</span></h1>
-        <div class="hero__row">
-          <p class="hero__lede lead" data-hero-fade>I design motion graphics, CGI and brand films that stop the scroll — and make brands impossible to forget.</p>
+  <!-- HERO — name as a window to the reel -->
+  <section class="nh" data-hud="Intro">
+    <div class="nh__stick">
+      <canvas class="nh__c js-nh" role="img" aria-label="ARSHAD — the showreel plays inside the letters" data-cur="bub" data-cur-label="Play reel"></canvas>
+      <div class="nh__ui">
+        <div class="nh__top mono">
+          <span data-scramble>(Portfolio ’26) Motion designer &amp; creative director</span>
+          <span class="avail"><i></i><span class="js-avail"></span></span>
+        </div>
+        <div class="nh__bot">
+          <h1 class="nh__h" data-hero-title>Motion with<br><em>a point of view.</em></h1>
+          <p class="lead muted" data-hero-fade>I design motion graphics, CGI and brand films that stop the scroll — and make brands impossible to forget.</p>
           <div class="hero__ctas" data-hero-fade>
-            <a href="work.html" class="btn btn--white" data-mag data-cur="link"><span class="roll">See the work</span><span class="btn__ic"></span></a>
-            <a class="btn btn--line" data-wa="Hi Arshad! I saw your portfolio and I'd like to discuss a project." data-mag data-cur="link"><span class="roll">Start a project</span><span class="btn__ic"></span></a>
+            <a href="work.html" class="btn" data-mag data-cur="link"><span class="roll">See the work</span><span class="btn__ic"></span></a>
+            <a class="btn btn--blue" data-wa="Hi Arshad! I saw your portfolio and I'd like to discuss a project." data-mag data-cur="link"><span class="roll">Start a project</span><span class="btn__ic"></span></a>
           </div>
         </div>
       </div>
+      <div class="nh__cue mono" data-hero-fade><span>Scroll</span><i></i></div>
+      <div class="nh__end">
+        <div class="d1">Showreel ’26</div>
+        <button class="reel__play js-reel-play" data-cur="link" aria-label="Play showreel">
+          <svg viewBox="0 0 132 132"><defs><path id="c" d="M66 66m-52 0a52 52 0 1 1 104 0a52 52 0 1 1-104 0"/></defs><text font-family="Space Mono" font-size="10" letter-spacing="3.2" fill="#fff"><textPath href="#c">PLAY REEL ✦ PLAY REEL ✦ PLAY REEL ✦ </textPath></text></svg>
+          <span>▶</span>
+        </button>
+        <div class="nh__meta mono"><span>Motion · CGI · Film · AI</span><span>Click to watch with sound ↗</span></div>
+      </div>
     </div>
-    <span class="hero__scroll mono" aria-hidden="true">Scroll — drain the blue ↓</span>
   </section>
 
   <!-- STATEMENT -->
@@ -81,25 +82,6 @@
     </div>
   </section>
 
-  <!-- REEL -->
-  <section class="reel" data-hud="Reel">
-    <div class="reel__stick">
-      <div class="reel__box">
-        <video class="js-reel" poster="img/reel-poster.webp" muted loop playsinline preload="metadata"></video>
-        <div class="reel__ov">
-          <div class="reel__meta mono"><span>Showreel ’26</span><span class="js-reel-tc">00:00:00:00</span></div>
-          <div class="reel__mid"><div class="d1 reel__t" style="font-size:clamp(44px,8vw,150px)">Play the reel</div>
-          <button class="reel__play js-reel-play" data-cur="link" aria-label="Play showreel">
-        <svg viewBox="0 0 132 132"><defs><path id="c" d="M66 66m-52 0a52 52 0 1 1 104 0a52 52 0 1 1-104 0"/></defs><text font-family="Space Mono" font-size="10" letter-spacing="3.2" fill="#fff"><textPath href="#c">PLAY REEL ✦ PLAY REEL ✦ PLAY REEL ✦ </textPath></text></svg>
-        <span>▶</span>
-      </button>
-          </div>
-          <div class="reel__meta mono"><span>Motion · CGI · Film · AI</span><span>Click to watch ↗</span></div>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- SELECTED WORK -->
   <section class="sec wrap" data-hud="Work">

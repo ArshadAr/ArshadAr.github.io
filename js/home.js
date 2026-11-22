@@ -51,58 +51,43 @@ const auto = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: '120px' });
 $$('.pillv video, .cap__m video').forEach(v => auto.observe(v));
 
-/* ---------- WebGL hero: blue liquid reveal ---------- */
+/* ---------- hero: the reel plays inside the name ---------- */
 const heroReel = document.createElement('video');
-Object.assign(heroReel, { muted: true, loop: true, playsInline: true, autoplay: true, crossOrigin: 'anonymous', preload: 'auto' });
+Object.assign(heroReel, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'auto' });
 heroReel.setAttribute('playsinline', ''); heroReel.setAttribute('muted', '');
-heroReel.src = innerWidth < 760 ? 'media/reel-loop-m.mp4' : 'media/reel-loop.mp4';
+heroReel.src = 'media/reel-loop.mp4';
 heroReel.play().catch(() => {});
-let liquid = null;
-if (!reduce) {
-  try { const { createLiquid } = await import('./gl-liquid.js'); liquid = createLiquid($('.hero__gl'), { video: heroReel }); }
-  catch (e) { console.warn('WebGL off', e); }
-}
-if (!liquid) {
-  document.documentElement.classList.add('no-gl');
-  const fv = $('.hero__fallback video'); fv.src = heroReel.src; fv.play().catch(() => {});
-  $('.js-hint').textContent = 'Showreel ’26 — motion, CGI, film & AI';
-} else if (!fine) $('.js-hint').textContent = 'Touch & drag — the reel is under the blue';
-// keep nav + HUD readable on the blue hero
-if (ST) ST.create({ trigger: '.hero', start: 'top top', end: 'bottom 60px', onToggle: s => document.body.classList.toggle('on-hero', s.isActive) });
-document.body.classList.add('on-hero');
+const { createNameHero } = await import('./hero-name.js');
+const nameHero = createNameHero($('.js-nh'), heroReel, { word: 'ARSHAD', focus: 3 });
+$('.js-nh').addEventListener('click', () => reelModal('media/reel-loop.mp4'));
+$('.js-reel-play').addEventListener('click', () => reelModal('media/reel-loop.mp4'));
 
 /* ---------- hero intro (after loader / transition) ---------- */
 const titleWords = splitWords($('[data-hero-title]'));
 if (gsap && !reduce) {
   gsap.set(titleWords, { yPercent: 115 });
-  gsap.set('[data-hero-fade], .hero__top > *', { opacity: 0, y: 24 });
+  gsap.set('[data-hero-fade], .nh__top > *', { opacity: 0, y: 24 });
 }
 await ready;
 if (gsap && !reduce) {
-  gsap.to(titleWords, { yPercent: 0, duration: 1.4, stagger: .06, ease: 'expo.out' });
-  gsap.to('[data-hero-fade], .hero__top > *', { opacity: 1, y: 0, duration: 1.1, stagger: .07, ease: 'expo.out', delay: .35 });
+  gsap.to(titleWords, { yPercent: 0, duration: 1.4, stagger: .06, ease: 'expo.out', delay: .25 });
+  gsap.to('[data-hero-fade], .nh__top > *', { opacity: 1, y: 0, duration: 1.1, stagger: .07, ease: 'expo.out', delay: .5 });
 }
-liquid && liquid.intro();
+nameHero.start();
 after();
 
 if (gsap && ST && !reduce) {
-  /* hero scroll-out: the blue drains away and the reel takes over */
-  ST.create({ trigger: '.hero', start: 'top top', end: 'bottom top', onUpdate: s => liquid && liquid.setOpen(Math.min(1, Math.max(0, (s.progress - .08) * 1.9))) });
-  gsap.to('.hero__ui', { opacity: 0, y: -80, ease: 'none', scrollTrigger: { trigger: '.hero', start: '5% top', end: '60% top', scrub: true } });
-  gsap.to('.hero__scroll', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '20% top', scrub: true } });
+  /* hero: dive through the H until the reel fills the screen */
+  ST.create({ trigger: '.nh', start: 'top top', end: 'bottom bottom', onUpdate: s => nameHero.setProgress(s.progress) });
+  gsap.to('.nh__ui, .nh__cue', { opacity: 0, y: -60, ease: 'none', scrollTrigger: { trigger: '.nh', start: 'top top', end: '25% top', scrub: true } });
+  gsap.fromTo('.nh__end', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', scrollTrigger: { trigger: '.nh', start: '52% top', end: '72% top', scrub: true } });
+  gsap.fromTo('.nh__end .d1, .nh__end .reel__play', { scale: .7, y: 40 }, { scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: '.nh', start: '52% top', end: '80% top', scrub: true } });
 
   /* statement — words light up as you read */
   const st = $('.js-state'); const words = splitWords(st);
   gsap.set(words, { opacity: .14 });
   gsap.to(words, { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: st, start: 'top 78%', end: 'bottom 50%', scrub: true } });
   gsap.from('.pillv', { scale: 0, duration: 1, stagger: .15, ease: 'expo.out', scrollTrigger: { trigger: st, start: 'top 75%' } });
-
-  /* reel — grows from a small frame to full screen */
-  const mob = innerWidth < 760;
-  gsap.fromTo('.reel__box', { clipPath: mob ? 'inset(30% 10% 30% 10% round 18px)' : 'inset(26% 32% 26% 32% round 24px)' },
-    { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.reel', start: 'top top', end: '55% bottom', scrub: true } });
-  gsap.fromTo('.reel__t', { scale: .55, opacity: 0 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.reel', start: '10% top', end: '55% bottom', scrub: true } });
-  gsap.fromTo('.reel__play', { scale: .6 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.reel', start: 'top top', end: '55% bottom', scrub: true } });
 
   /* capability cards stack and recede */
   const caps = $$('.cap');
@@ -121,16 +106,6 @@ if (gsap && ST && !reduce) {
   const mqEl = $('.js-mq');
   if (lenis) lenis.on('scroll', ({ velocity }) => mqEl.getAnimations().forEach(a => a.playbackRate = 1 + Math.min(5, Math.abs(velocity) * .25) * Math.sign(velocity || 1)));
 }
-
-/* ---------- reel video ---------- */
-const reel = $('.js-reel');
-new IntersectionObserver(([e]) => {
-  if (e.isIntersecting) { if (!reel.src) reel.src = innerWidth < 760 ? 'media/reel-loop-m.mp4' : 'media/reel-loop.mp4'; reel.play().catch(() => {}); } else reel.pause();
-}, { rootMargin: '200px' }).observe($('.reel'));
-const rtc = $('.js-reel-tc');
-reel.addEventListener('timeupdate', () => { const t = reel.currentTime; rtc.textContent = `00:00:${String(Math.floor(t)).padStart(2, '0')}:${String(Math.floor((t % 1) * 25)).padStart(2, '0')}`; });
-$('.js-reel-play').addEventListener('click', () => reelModal('media/reel-loop.mp4'));
-$('.reel__box').addEventListener('click', () => reelModal('media/reel-loop.mp4'));
 
 /* ---------- floating preview for rows ---------- */
 if (fine && gsap) {
