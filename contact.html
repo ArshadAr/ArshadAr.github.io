@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact — Let's work together | Arshad</title>
+<meta name="description" content="Start a project with Arshad — motion design, CGI, explainers, brand films and AI ads. Send a 30-second brief on WhatsApp or email.">
+<meta name="theme-color" content="#f4f3ed">
+<meta property="og:title" content="Contact — Let's work together | Arshad">
+<meta property="og:description" content="Start a project with Arshad — motion design, CGI, explainers, brand films and AI ads. Send a 30-second brief on WhatsApp or email.">
+<meta property="og:image" content="https://arshadar.github.io/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body data-page="contact" data-foot-title="Prefer to just<br>say hi?">
+<main>
+
+  <section class="ph wrap" data-hud="Contact">
+    <div class="ph__top mono"><span class="label" data-scramble>(Contact) Start a project</span><span class="avail"><i></i><span class="js-avail"></span></span></div>
+    <h1 class="d1" data-split>Let’s make<br>something move.</h1>
+    <div class="ph__row"><p class="lead muted" data-fade>Tell me a little about your project — it takes about 30 seconds. Your brief opens in WhatsApp or email, ready to send. I usually reply the same day.</p></div>
+  </section>
+  <section class="wrap" data-hud="Brief" style="padding-bottom:clamp(96px,12vw,180px)">
+    <div class="ct">
+      <form class="brief js-brief" data-fade onsubmit="return false">
+        <div class="brief__step"><p class="brief__q"><span class="mono">01</span>What do you need?</p><div class="opts" data-q="need" data-multi>
+          <button type="button" class="opt" data-cur="link">Motion design</button><button type="button" class="opt" data-cur="link">CGI / FOOH billboard</button><button type="button" class="opt" data-cur="link">Explainer / UI motion</button><button type="button" class="opt" data-cur="link">Brand film</button><button type="button" class="opt" data-cur="link">AI film / ad</button><button type="button" class="opt" data-cur="link">Logo animation</button><button type="button" class="opt" data-cur="link">Editing</button><button type="button" class="opt" data-cur="link">Not sure yet</button></div></div>
+        <div class="brief__step"><p class="brief__q"><span class="mono">02</span>Rough budget?</p><div class="opts" data-q="budget">
+          <button type="button" class="opt" data-cur="link">Under ₹25k</button><button type="button" class="opt" data-cur="link">₹25k – ₹75k</button><button type="button" class="opt" data-cur="link">₹75k – ₹2L</button><button type="button" class="opt" data-cur="link">₹2L +</button><button type="button" class="opt" data-cur="link">Let’s discuss</button></div></div>
+        <div class="brief__step"><p class="brief__q"><span class="mono">03</span>When do you need it?</p><div class="opts" data-q="time">
+          <button type="button" class="opt" data-cur="link">ASAP</button><button type="button" class="opt" data-cur="link">2 – 4 weeks</button><button type="button" class="opt" data-cur="link">1 – 2 months</button><button type="button" class="opt" data-cur="link">Flexible</button></div></div>
+        <div class="brief__step" style="border:0"><p class="brief__q"><span class="mono">04</span>About you</p>
+          <div class="field"><input id="f-name" placeholder=" " autocomplete="name"><label for="f-name">Your name</label></div>
+          <div class="field"><input id="f-brand" placeholder=" " autocomplete="organization"><label for="f-brand">Brand / company</label></div>
+          <div class="field"><textarea id="f-msg" rows="3" placeholder=" "></textarea><label for="f-msg">Anything else? (idea, links, deadline)</label></div>
+        </div>
+        <div class="brief__prev js-prev" aria-live="polite"></div>
+        <div class="brief__send">
+          <a class="btn btn--blue js-send-wa" target="_blank" rel="noopener" data-mag data-cur="link"><span class="roll">Send on WhatsApp</span><span class="btn__ic"></span></a>
+          <a class="btn btn--line js-send-mail" data-mag data-cur="link"><span class="roll">Send by email</span><span class="btn__ic"></span></a>
+        </div>
+      </form>
+      <aside class="ct__side">
+        <div class="ct__card" data-fade><span class="mono muted">Email</span><button class="ul js-copy" data-cur="link"></button></div>
+        <div class="ct__card" data-fade><span class="mono muted">WhatsApp / call</span><a class="ul js-phone" data-cur="link"></a></div>
+        <div class="ct__card" data-fade><span class="mono muted">Portfolio</span><a class="ul js-behance" target="_blank" rel="noopener" data-cur="link">Behance ↗</a></div>
+        <div class="ct__card" data-fade><span class="mono muted">Local time</span><p class="d4 js-time" style="margin-top:8px"></p></div>
+        <div class="ct__card" data-fade><span class="mono muted">What happens next</span>
+          <ol style="list-style:none;margin-top:12px" class="muted">
+            <li style="padding:10px 0;border-bottom:1px solid var(--line)"><b style="color:var(--blue);font-weight:500">01</b> — I read your brief and reply, usually the same day.</li>
+            <li style="padding:10px 0;border-bottom:1px solid var(--line)"><b style="color:var(--blue);font-weight:500">02</b> — A quick call to understand the goal.</li>
+            <li style="padding:10px 0"><b style="color:var(--blue);font-weight:500">03</b> — You get an idea, a timeline and a fixed quote.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+<script src="js/data.js"></script>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script type="module" src="js/page.js"></script>
+</body>
+</html>
